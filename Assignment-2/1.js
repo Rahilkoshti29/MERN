@@ -4,7 +4,6 @@ function filterPalindrome(arr) {
     });
 }
 
-// Example
 let arr = ["madam", "racecar", "apple", "level", "hello"];
 
 console.log(filterPalindrome(arr));
