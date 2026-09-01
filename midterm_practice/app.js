@@ -1,13 +1,13 @@
 import express from "express"
 import "dotenv/config"
 import indexRoute from "./routes/indexRoute.js"
-import  connectDB  from "./config/dbconfig.js"
+// TODO: import your dbconfig.js connectDB function and call it below, e.g.
+// import connectDB from "./config/dbconfig.js"
+// connectDB()
 
 const PORT = process.env.PORT || 1200
 
 const app = express()
-connectDB(process.env.MONGO_URI)
-
 app.use(express.json())
 app.use("/", indexRoute)
 
