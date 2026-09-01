@@ -1,0 +1,7 @@
+Line 1: Learn NodeJS
+Line 2: Learn ExpressJS
+Line 3: Learn MongoDB
+Line 4: Practice APIs
+Line 5: Prepare for exam
+Line 6: Practice coding
+Line 7: Revise questions
