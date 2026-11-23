@@ -1,0 +1,173 @@
+Step 1 :
+
+src/
+ ├─ main.jsx
+ ├─ App.jsx
+ ├─ components/
+ │ ├─ MyNavbar.jsx
+ │ └─ FoodCard.jsx
+ └─ pages/
+ ├─ HomePage.jsx
+ ├─ FoodsPage.jsx
+ └─ PageNotFound.jsx
+
+
+Step 1 : main.jsx
+
+
+import { createRoot } from 'react-dom/client'
+import "bootstrap/dist/css/bootstrap.css"
+import { createBrowserRouter, RouterProvider } from 'react-router'
+import App from './App.jsx'
+import HomePage from './pages/HomePage.jsx'
+import FoodsPage from './pages/FoodsPage.jsx'
+import PageNotFound from './pages/PageNotFound.jsx'
+const myRoutes = createBrowserRouter([
+ {
+ path: "/",
+ element: <App />,
+ children: [
+ { path: "", index: true, element: <HomePage /> },
+ { path: "foods", element: <FoodsPage /> },
+ ],
+ },
+ { path: "*", element: <PageNotFound /> },
+])
+createRoot(document.getElementById('root')).render(
+ <RouterProvider router={myRoutes} />
+)
+
+
+Step 2  : App.jsx
+
+
+import { Outlet } from 'react-router'
+import MyNavbar from './components/MyNavbar'
+function App() {
+ return (
+ <>
+ <MyNavbar />
+ <div className="container mt-4">
+ <Outlet />
+ </div>
+ </>
+ )
+}
+export default App
+
+
+Step 3 : components/MyNavbar.jsx
+
+
+import { NavLink } from 'react-router'
+const MyNavbar = () => {
+ const linkStyle = ({ isActive }) => {
+ return {
+ textDecoration: "none",
+ color: isActive ? "white" : "gray",
+ backgroundColor: isActive ? "rosybrown" : "",
+ }
+ }
+ return (
+ <nav className="navbar navbar-expand-sm navbar-dark bg-dark">
+ <div className="container">
+ <span className="navbar-brand">Food Explorer</span>
+ <ul className="navbar-nav me-auto">
+ <li className="nav-item">
+ <NavLink to="/" end className="nav-link" style={linkStyle}>Home</NavLink>
+ </li>
+ <li className="nav-item">
+ <NavLink to="/foods" className="nav-link" style={linkStyle}>Foods</NavLink>
+ </li>
+ </ul>
+ </div>
+ </nav>
+ )
+}
+export default MyNavbar
+
+
+Step 4 : pages/HomePage.jsx
+
+
+const HomePage = () => {
+ return (
+ <>
+ <h1>Welcome to Food Explorer</h1>
+ <p>Click on Foods in the menu to see the list.</p>
+ </>
+ )
+}
+export default HomePage
+
+
+Step 5 : pages/PageNotFound.jsx
+
+
+const PageNotFound = () => {
+ return (
+ <div style={{ color: "red" }}>
+ <h3>Page Not Found</h3>
+ </div>
+ )
+}
+export default PageNotFound
+
+
+Step 6 : components/FoodCard.jsx
+
+
+const FoodCard = ({ name, category, price }) => {
+ return (
+ <div className="card p-3 mb-3">
+ <h4>{name}</h4>
+ <p>Category: {category}</p>
+ <p>Price: ₹{price}</p>
+ {price >= 200
+ ? <span style={{ color: "green" }}>Premium Item</span>
+ : <span style={{ color: "blue" }}>Budget Friendly</span>}
+ </div>
+ )
+}
+export default FoodCard
+
+
+
+Step 7 : pages/FoodsPage.jsx
+
+
+import { useState } from 'react'
+import FoodCard from '../components/FoodCard'
+const foods = [
+ { id: 1, name: "Pizza", category: "Italian", price: 250 },
+ { id: 2, name: "Dosa", category: "South Indian", price: 100 },
+ { id: 3, name: "Pasta", category: "Italian", price: 200 },
+ { id: 4, name: "Sandwich", category: "Fast Food", price: 120 },
+]
+const FoodsPage = () => {
+ const [search, setSearch] = useState("")
+ const filtered = foods.filter((x) =>
+ x.name.toLowerCase().includes(search.toLowerCase())
+ )
+ return (
+ <div>
+ <h2>Foods</h2>
+ <input
+ type="text"
+ className="form-control mb-3"
+placeholder="Search by name..."
+ value={search}
+ onChange={(e) => setSearch(e.target.value)}
+ />
+ {filtered.length === 0 ? (
+ <p>No food items found</p>
+ ) : (
+ filtered.map((x) => (
+ <FoodCard key={x.id} name={x.name} category={x.category} price={x.price} />
+ ))
+ )}
+ </div>
+ )
+}
+export default FoodsPage
+

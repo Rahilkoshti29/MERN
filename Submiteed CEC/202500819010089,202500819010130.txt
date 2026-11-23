@@ -1,0 +1,11 @@
+1. Project Name :- 
+	TechPravah
+
+2. Team Member Details :-
+
+	202500819010089 - Rahil Koshti
+	202500819010130 - Darshan Vadodariya
+
+3. GitHub Repository Link :-
+
+	https://github.com/Rahilkoshti29/techpravah

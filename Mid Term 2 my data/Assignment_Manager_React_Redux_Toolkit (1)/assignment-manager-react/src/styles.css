@@ -1,0 +1,203 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+:root {
+  font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  color: #172033;
+  background: #f3f6fb;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+}
+
+button, input { font: inherit; }
+
+.page {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 64px 20px;
+  background:
+    radial-gradient(circle at 10% 10%, rgba(78, 111, 245, 0.10), transparent 28%),
+    radial-gradient(circle at 90% 80%, rgba(20, 184, 166, 0.10), transparent 28%),
+    #f3f6fb;
+}
+
+.manager {
+  width: 100%;
+  max-width: 760px;
+  background: #fff;
+  border: 1px solid #e7ebf3;
+  border-radius: 22px;
+  padding: 38px;
+  box-shadow: 0 24px 70px rgba(27, 39, 75, 0.09);
+}
+
+.heading { margin-bottom: 32px; }
+.eyebrow {
+  margin: 0 0 10px;
+  color: #5269dc;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 2px;
+}
+h1 {
+  margin: 0;
+  font-size: clamp(28px, 4vw, 38px);
+  letter-spacing: -1.3px;
+  line-height: 1.2;
+}
+.subtitle {
+  color: #758097;
+  margin: 12px 0 0;
+  font-size: 14px;
+  line-height: 1.6;
+}
+.add-form label {
+  display: block;
+  margin-bottom: 10px;
+  font-size: 13px;
+  font-weight: 700;
+  color: #39445b;
+}
+.input-row {
+  display: flex;
+  gap: 10px;
+}
+.input-row input {
+  flex: 1;
+  min-width: 0;
+  border: 1px solid #dce2ed;
+  border-radius: 10px;
+  padding: 13px 14px;
+  color: #172033;
+  outline: none;
+  transition: border-color .15s, box-shadow .15s;
+}
+.input-row input:focus {
+  border-color: #6578e8;
+  box-shadow: 0 0 0 3px rgba(101, 120, 232, .13);
+}
+.input-row input::placeholder { color: #a3abbb; }
+.add-button {
+  border: 0;
+  border-radius: 10px;
+  padding: 0 18px;
+  background: #5269dc;
+  color: white;
+  font-weight: 700;
+  font-size: 13px;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background .15s, transform .15s;
+}
+.add-button:hover { background: #4056c6; }
+.add-button:active { transform: translateY(1px); }
+
+.list-heading {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 34px 0 14px;
+}
+.list-heading h2 {
+  margin: 0;
+  font-size: 17px;
+  letter-spacing: -.3px;
+}
+.count {
+  display: inline-flex;
+  min-width: 25px;
+  height: 25px;
+  align-items: center;
+  justify-content: center;
+  padding: 0 7px;
+  border-radius: 8px;
+  background: #eef0ff;
+  color: #5269dc;
+  font-size: 12px;
+  font-weight: 800;
+}
+.assignment-list { display: grid; gap: 10px; }
+.assignment-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px;
+  border: 1px solid #e8ecf4;
+  border-radius: 13px;
+  transition: border-color .15s, transform .15s;
+}
+.assignment-row:hover {
+  border-color: #cbd2f7;
+  transform: translateY(-1px);
+}
+.assignment-card {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.assignment-card p {
+  margin: 0;
+  overflow-wrap: anywhere;
+  color: #303b51;
+  font-size: 14px;
+  font-weight: 600;
+}
+.assignment-icon {
+  flex: 0 0 30px;
+  width: 30px;
+  height: 30px;
+  display: grid;
+  place-items: center;
+  border-radius: 9px;
+  background: #e9f8f0;
+  color: #1a9b63;
+  font-size: 14px;
+  font-weight: 800;
+}
+.delete-button {
+  border: 1px solid #f2d6d8;
+  border-radius: 8px;
+  background: #fff;
+  color: #c7444e;
+  padding: 8px 11px;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+}
+.delete-button:hover { background: #fff2f2; }
+.empty-state {
+  margin: 0;
+  padding: 28px 16px;
+  border: 1px dashed #dce2ed;
+  border-radius: 12px;
+  color: #7c879c;
+  text-align: center;
+  font-size: 14px;
+}
+.footer-note {
+  margin: 30px 0 0;
+  padding-top: 18px;
+  border-top: 1px solid #edf0f5;
+  color: #9aa3b4;
+  text-align: center;
+  font-size: 11px;
+}
+
+@media (max-width: 560px) {
+  .page { padding: 24px 12px; }
+  .manager { padding: 24px 18px; border-radius: 16px; }
+  .input-row { flex-direction: column; }
+  .add-button { min-height: 44px; }
+  .assignment-row { padding: 10px; }
+}

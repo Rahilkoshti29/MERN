@@ -1,0 +1,131 @@
+src/
+ ├─ main.jsx
+ ├─ App.jsx
+ ├─ components/
+ │ └─ ShoppingItem.jsx
+ └─ redux/
+ ├─ shoppingSlice.js
+ └─ store.js
+
+
+Step : 1 src/redux/shoppingSlice.js
+
+
+import { createSlice } from "@reduxjs/toolkit"
+const items = [
+ { id: 1, name: "Milk" },
+ { id: 2, name: "Bread" },
+ { id: 3, name: "Apples" },
+]
+const shoppingSlice = createSlice({
+ name: "shopping",
+ initialState: { items: items },
+ reducers: {
+ addItem: (state, action) => {
+ state.items.push({ id: Date.now(), name: action.payload })
+ },
+ removeItem: (state, action) => {
+ state.items = state.items.filter((item) => item.id !== action.payload)
+ },
+ },
+})
+export const { addItem, removeItem } = shoppingSlice.actions
+export default shoppingSlice.reducer
+export const selectItems = (state) => state.shopping.items
+
+
+Step : 2 src/redux/store.js
+
+
+import { configureStore } from "@reduxjs/toolkit"
+import shoppingReducer from "./shoppingSlice.js"
+const myStore = configureStore({
+ reducer: {
+ shopping: shoppingReducer,
+ },
+})
+export default myStore
+
+
+Step : 3 src/main.jsx
+
+
+import { createRoot } from 'react-dom/client'
+import "bootstrap/dist/css/bootstrap.css"
+import { Provider } from 'react-redux'
+import myStore from './redux/store.js'
+import App from './App.jsx'
+createRoot(document.getElementById('root')).render(
+ <Provider store={myStore}>
+ <App />
+ </Provider>
+)
+
+
+Step : 4 src/components/ShoppingItem.jsx
+
+
+const ShoppingItem = ({ name }) => {
+ return (
+ <div>
+ <b>{name}</b>
+ </div>
+ )
+}
+export default ShoppingItem
+
+
+
+Step : 5 src/App.jsx
+
+
+import { useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import ShoppingItem from './components/ShoppingItem'
+import { addItem, removeItem, selectItems } from './redux/shoppingSlice'
+function App() {
+ const [name, setName] = useState("")
+ const items = useSelector(selectItems)
+ const dispatch = useDispatch()
+ const handleAdd = () => {
+ if (name.trim() === "") return
+ dispatch(addItem(name.trim()))
+ setName("")
+ }
+ return (
+ <div className="container mt-4">
+ <h2>Shopping List Manager</h2>
+ <div className="d-flex mb-3">
+ <input
+ type="text"
+ className="form-control"
+ placeholder="Enter item name"
+ value={name}
+ onChange={(e) => setName(e.target.value)}
+ />
+ <button className="btn btn-primary ms-2" onClick={handleAdd}>Add Item</button>
+ </div>
+ {items.length === 0 ? (
+ <p>Shopping list is empty</p>
+ ) : (
+ items.map((item) => (
+ <div
+ key={item.id}
+ className="d-flex justify-content-between align-items-center border p-2 mb-2"
+ >
+ <ShoppingItem name={item.name} />
+ <button
+ className="btn btn-danger btn-sm"
+ onClick={() => dispatch(removeItem(item.id))}
+ >
+ Remove
+ </button>
+ </div>
+ ))
+ )}
+ </div>
+ )
+}
+export default App
+
+
